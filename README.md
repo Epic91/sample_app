@@ -14,5 +14,10 @@ This is the sample application for the
 * Integration tests effectively simulate a browser clicking from page to page
 
 ## Code to take note of:
-The assertion for the root path verifies that there are two such links(one each for the logo and navigation menu elements) this ensures that both links to the Home page are defined.
+* The assertion for the root path verifies that there are two such links(one each for the logo and navigation menu elements) this ensures that both links to the Home page are defined.
 `assert_select "a[href=?]", root_path, count:2`
+* `%w[]` makes arrays into strings
+
+
+## Resources
+To better understand Regex [Rubular](https://rubular.com/).
