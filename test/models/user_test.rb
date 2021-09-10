@@ -57,6 +57,17 @@ class UserTest < ActiveSupport::TestCase
     @user.password = @user.password_confirmation = "a" * 5
     assert_not @user.valid?
   end
+
+  test "email address should be downcased" do
+    # created a string with bad example and saved in variable
+    mixed_case_email = "Foo@ExAMPLe.COM"
+    # set bad example to the users email
+    @user.email = mixed_case_email
+    # save the user
+    @user.save
+    # email entered gets downcased
+    assert_equal mixed_case_email.downcase, @user.reload.email 
+  end
 end
 
 #run bundle exec rails test:models to run just the model tests
