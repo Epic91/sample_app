@@ -3,7 +3,7 @@ require "test_helper"
 class UserTest < ActiveSupport::TestCase
   # setup method automatically gets run before each test. @user is an instance variable and its automatically available in all tests.
   def setup
-    @user = User.new(name: "Example User", email: "user@exmaple.com")
+    @user = User.new(name: "Example User", email: "user@exmaple.com", password: "foobar", password_digest: "foobar")
   end
   # returns true if the user is valid
   test "should be valid" do
@@ -44,6 +44,18 @@ class UserTest < ActiveSupport::TestCase
       @user.email = invalid_address
       assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
     end
+  end
+
+  test "email addresses should be unique" do
+    duplicate_user = @user.dup
+    duplicate_user.email = @user.email.upcase
+    @user.save
+    assert_not duplicate_user.valid?
+  end
+
+  test "password should have a minimum length" do
+    @user.password = @user.password_confirmation = "a" * 5
+    assert_not @user.valid?
   end
 end
 
