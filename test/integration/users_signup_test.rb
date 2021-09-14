@@ -18,7 +18,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   end
 
   # Test not working
-  test "valid signup information" do
+  test "valid sign-up information" do
     get signup_path
     assert_difference 'User.count', 1 do
       post_via_redirect users_path, user: {
@@ -29,6 +29,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       }
     end
     assert_template 'users/show'
-    assert_not flash.FILL_IN
+    assert is_logged_in?
   end
 end
